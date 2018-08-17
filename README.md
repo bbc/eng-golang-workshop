@@ -14,6 +14,8 @@ We are on Slack as #eng-golang
 
 We use this book for study: [The Go Programming Language by Alan Donovan and Brian W. Kernighan](https://www.amazon.co.uk/Programming-Language-Addison-Wesley-Professional-Computing/dp/0134190440/)
 
+The source code for the book: [github.com/adonovan/gopl.io](https://github.com/adonovan/gopl.io)
+
 ## Links
 
 [A Tour of Go](https://tour.golang.org/welcome/1)
