@@ -18,7 +18,7 @@ func inefficient() {
 	}
 }
 
-func moreInefficient() {
+func efficient() {
 	strings.Join(os.Args[1:], " ")
 }
 
@@ -27,7 +27,7 @@ func main() {
 	inefficient()
 	secsIneff := time.Since(startIneff).Seconds()
 	startEff := time.Now()
-	moreInefficient()
+	efficient()
 	secsEff := time.Since(startEff).Seconds()
 	fmt.Println(secsIneff)
 	fmt.Println(secsEff)
