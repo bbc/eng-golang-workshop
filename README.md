@@ -33,7 +33,7 @@ master. Just don't break things...well, fix things if they do break! :)
 
 ###  Home/Linuxbrew
 It may be convenient to install the latest version of Go through the
-[Homebrew](https://brew.sh/) and [LinuxBrew](http://linuxbrew.sh/) package
+[Homebrew](https://brew.sh/) and [Linuxbrew](http://linuxbrew.sh/) package
 managers.
 
 ```
