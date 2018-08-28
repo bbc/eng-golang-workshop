@@ -31,15 +31,15 @@ master. Just don't break things...well, fix things if they do break! :)
 
 ## Installing Go
 
-### Install with Homebrew
-Homebrew has a go formulae which can be installed using:
+###  Home/Linuxbrew
+It may be convenient to install the latest version of Go through the
+[Homebrew](https://brew.sh/) and [LinuxBrew](http://linuxbrew.sh/) package
+managers.
 
 ```
 brew install go
 ```
 
-### Install with LinuxBrew
-_TODO_
 
 ### Install with Binary Distributions
 The [https://golang.org/dl/](https://golang.org/dl/) page contains distros for
