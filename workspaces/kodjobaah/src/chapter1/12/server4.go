@@ -1,3 +1,4 @@
+// Generates GIF animations of random Lissajous figures. via a browser. It accepts cycles as a query parameter
 package main
 
 import (
