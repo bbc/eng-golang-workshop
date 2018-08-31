@@ -10,6 +10,7 @@ func main() {
 }
 ```
 
+## The Workshop
 We are on Slack as `#eng-golang`
 
 Our workshop text is:
@@ -28,7 +29,38 @@ cd bobbyfoo
 tar xzvf ../../exercises.tar.gz
 ```
 
-A project structure could be:
+## Installing Go
+
+###  Home/Linuxbrew
+It may be convenient to install the latest version of Go through the
+[Homebrew](https://brew.sh/) and [Linuxbrew](http://linuxbrew.sh/) package
+managers.
+
+```
+brew install go
+```
+
+### Install with Binary Distributions
+The [https://golang.org/dl/](https://golang.org/dl/) page contains distros for
+Windows, MacOS, Linux, and source. The
+[installation instructions](https://golang.org/doc/install) explains how to
+install them.
+
+### Go Modules
+
+_Go modules_ are an experimental opt-in feature in Go 1.11. Follow this
+documentation to [install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
+
+## Running Go
+
+To run your exercises without using _Go Modules_ you should set your `$GOPATH` to your current directory, such as:
+```
+export GOPATH=/home/bobbyf/eng-golang-workshop/workspaces/bobbyfoo
+```
+
+Then when runnning `go get...` the packages will be placed in your `.../src` directory and `go build...` in your `.../bin` directory etc.
+
+A project structure could then be:
 
 ```
 workspaces
@@ -48,29 +80,6 @@ workspaces
 
 Commit directly to master and fix stuff if it breaks. :)
 
-## Installing Go
-
-###  Home/Linuxbrew
-It may be convenient to install the latest version of Go through the
-[Homebrew](https://brew.sh/) and [Linuxbrew](http://linuxbrew.sh/) package
-managers.
-
-```
-brew install go
-```
-
-
-### Install with Binary Distributions
-The [https://golang.org/dl/](https://golang.org/dl/) page contains distros for
-Windows, MacOS, Linux, and source. The
-[installation instructions](https://golang.org/doc/install) explains how to
-install them.
-
-### Go Modules
-
-_Go modules_ are an experimental opt-in feature in Go 1.11. Follow this
-documentation to [install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
-
 ## Links
 
 [A Tour of Go](https://tour.golang.org/welcome/1)
@@ -80,3 +89,7 @@ documentation to [install and activate modules](https://github.com/golang/go/wik
 [Effective Go](https://golang.org/doc/effective_go.html)
 
 [Source code: The Go Programming Language](https://github.com/adonovan/gopl.io)
+
+[YouTube: Concurrency is not Parallelism by Rob Pike](https://www.youtube.com/watch?v=oV9rvDllKEg)
+
+[YouTube: Go Proverbs](https://www.youtube.com/watch?v=PAAkCSZUG1c)
