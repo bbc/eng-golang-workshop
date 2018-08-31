@@ -1,6 +1,8 @@
-# BBC Gophers — Go Language Workshop Repository
+# BBC Gophers — Go Language Workshop
 
-![Gopher](resources/gopher.png)
+<p align="center">
+  <img width="225" height="300" src="https://github.com/bbc/eng-golang-workshop/raw/master/resources/gopher.png">
+</p>
 
 ```
 func main() {
@@ -8,17 +10,17 @@ func main() {
 }
 ```
 
-We are on Slack as #eng-golang
+We are on Slack as `#eng-golang`
 
-We use this book for study:
+Our workshop text is:
 [The Go Programming Language by Alan Donovan and Brian W. Kernighan](https://www.gopl.io/)
 
-Each week we will complete one chapter. To take part, create your own directory
-in the [workspaces](workspaces) directory with whatever name you chose. Change
-directory to your workspace Then un-tar the examples there.
+Each week we will complete one chapter then (_optionally_) meet to chat about it.
+To join in, create your own directory in the [workspaces](workspaces) directory
+with whatever name you chose. Change directory to your workspace and then you
+can un-tar the examples there if you wish (or refer to your book).
 
 e.g.
-
 ```
 cd workspace
 mkdir bobbyfoo
@@ -26,8 +28,25 @@ cd bobbyfoo
 tar xzvf ../../exercises.tar.gz
 ```
 
-Add any source code and stuff in the exercise directory. Commit directly to
-master. Just don't break things...well, fix things if they do break! :)
+A project structure could be:
+
+```
+workspaces
+    bobbyfoo\
+        exercises\
+            ...
+        bin\
+            helloworld
+            ...
+        src\
+            bobbyfoo.com\
+                ch1\
+                    ex1_1\
+                        main.go
+                ...
+```
+
+Commit directly to master and fix stuff if it breaks. :)
 
 ## Installing Go
 
