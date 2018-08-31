@@ -1,0 +1,3 @@
+[submodule "path_to_submodule"] 
+  path = workspaces/betandr/src/gopl.io
+  url = https://github.com/adonovan/gopl.io.git
