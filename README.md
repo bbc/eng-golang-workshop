@@ -58,7 +58,7 @@ To run your exercises without using _Go Modules_ you should set your `$GOPATH` t
 export GOPATH=/home/bobbyf/eng-golang-workshop/workspaces/bobbyfoo
 ```
 
-Then when runnning `go get...` the packages will be placed in your `.../src` directory and `go build...` in your `.../bin` directory etc.
+Then when runnning something like `go get gopl.io/ch1/helloworld` the source will be placed in your `$GOPATH/src` directory and `go build src/gopl.io/ch1/helloworld` will be placed in your `$GOPATH/bin` directory etc.
 
 A project structure could then be:
 
