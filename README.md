@@ -49,16 +49,21 @@ install them.
 ### Go Modules
 
 _Go modules_ are an experimental opt-in feature in Go 1.11. Follow this
-documentation to [install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
+documentation to
+[install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
 
 ## Running Go
 
-To run your exercises without using _Go Modules_ you should set your `$GOPATH` to your current directory, such as:
+To run your exercises without using _Go Modules_ you should set your `$GOPATH`
+to your current directory, such as:
 ```
 export GOPATH=/home/bobbyf/eng-golang-workshop/workspaces/bobbyfoo
 ```
 
-Then when runnning something like `go get gopl.io/ch1/helloworld` the source will be placed in your `$GOPATH/src` directory and `go build src/gopl.io/ch1/helloworld` will be placed in your `$GOPATH/bin` directory etc.
+Then when runnning something like `go get gopl.io/ch1/helloworld` the source will
+be placed in your `$GOPATH/src` directory and
+`go build src/gopl.io/ch1/helloworld` will be placed in your `$GOPATH/bin`
+directory etc.
 
 A project structure could then be:
 
