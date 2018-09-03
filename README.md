@@ -95,15 +95,6 @@ Commit directly to master and fix stuff if it breaks. :)
 _todo_
 
 ### Emacs
-_todo_
-
-### Atom
-Atom supports Go development with the
-[go-plus](https://atom.io/packages/go-plus) package amongst other tools.
-
-## Editors
-
-### Emacs
 
 If you follow similar instructions to get go support for emacs (OS X) as below
 http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-editor-from-scratch/
@@ -121,6 +112,9 @@ https://emacs.stackexchange.com/questions/10722/emacs-and-command-line-path-disa
 
 So if you edit `/etc/paths.d/go` and add the path to the bin directory of your project it should fix problem.
 
+### Atom
+Atom supports Go development with the
+[go-plus](https://atom.io/packages/go-plus) package amongst other tools.
 
 ## Links
 
