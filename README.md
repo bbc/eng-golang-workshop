@@ -16,7 +16,11 @@ We are on Slack as `#eng-golang`
 Our workshop text is:
 [The Go Programming Language by Alan Donovan and Brian W. Kernighan](https://www.gopl.io/)
 
-Each week we will complete one chapter then (_optionally_) meet to chat about it.
+Feel free to work through the text at a speed that suits you, although one
+chapter per week is a good target to aim for (if you have the time). We also have
+sessions booked to meet to chat about Go and the book etc. So just join in any
+time! :)
+
 To join in, create your own directory in the [workspaces](workspaces) directory
 with whatever name you chose. Change directory to your workspace and then you
 can un-tar the examples there if you wish (or refer to your book).
@@ -84,6 +88,18 @@ workspaces
 ```
 
 Commit directly to master and fix stuff if it breaks. :)
+
+## Development Environments
+
+### GoLand
+_todo_
+
+### Emacs
+_todo_
+
+### Atom
+Atom supports Go development with the
+[go-plus](https://atom.io/packages/go-plus) package amongst other tools.
 
 ## Links
 
