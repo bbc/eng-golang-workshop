@@ -96,16 +96,7 @@ Commit directly to master and fix stuff if it breaks. :)
 ```
 go get -u github.com/derekparker/delve/cmd/dlv
 ```
-(...to build manually, run:
-```
-go build github.com/derekparker/delve/cmd/dlv
-```
-)
-...then ensure you have your `$GOPATH/bin` directory in your system `$PATH` you should be able to run something like:
-```
-dlv debug src/foo.io/package/main.go
-```
-To see the available commands, run `help` at the `(dlv)` prompt.
+To see the available commands, run `dlv` then `help` at the `(dlv)` prompt.
 
 ### GoLand
 _todo_
@@ -130,7 +121,10 @@ So if you edit `/etc/paths.d/go` and add the path to the bin directory of your p
 
 ### Atom
 Atom supports Go development with the
-[go-plus](https://atom.io/packages/go-plus) package amongst other tools.
+[go-plus](https://atom.io/packages/go-plus) package.
+
+To use Delve inside Atom, install the 
+[go-debug](https://atom.io/packages/go-debug) package.
 
 ## Links
 
