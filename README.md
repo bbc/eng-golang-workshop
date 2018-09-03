@@ -52,6 +52,27 @@ install them.
 _Go modules_ are an experimental opt-in feature in Go 1.11. Follow this
 documentation to [install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
 
+## Editors
+
+### Emacs
+
+If you follow similar instructions to get go support for emacs (OS X) as below
+http://tleyden.github.io/blog/2014/05/22/configure-emacs-as-a-go-editor-from-scratch/
+
+And you run into the following error when trying to get auto-complete to work.
+
+```
+Error running timer ‘ac-update-greedy’: (file-missing "Searching for program" "No such file or directory" "gocode")
+Error running timer ‘ac-show-menu’: (file-missing "Searching for program" "No such file or directory" "gocode")
+Error running timer ‘ac-update-greedy’: (file-missing "Searching for program" "No such file or directory" "gocode"
+```
+
+Then the problem is probably down to `gocode` not being available in your path:
+https://emacs.stackexchange.com/questions/10722/emacs-and-command-line-path-disagreements-on-osx
+
+So if you edit `/etc/paths.d/go` and add the path to the bin directory of your project it should fix problem.
+
+
 ## Links
 
 [A Tour of Go](https://tour.golang.org/welcome/1)
