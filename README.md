@@ -91,6 +91,22 @@ Commit directly to master and fix stuff if it breaks. :)
 
 ## Development Environments
 
+### Delve (Debugger)
+[Delve](https://github.com/derekparker/delve) is is a debugger for Go. To install run:
+```
+go get -u github.com/derekparker/delve/cmd/dlv
+```
+(...to build manually, run:
+```
+go build github.com/derekparker/delve/cmd/dlv
+```
+)
+...then ensure you have your `$GOPATH/bin` directory in your system `$PATH` you should be able to run something like:
+```
+dlv debug src/foo.io/package/main.go
+```
+To see the available commands, run `help` at the `(dlv)` prompt.
+
 ### GoLand
 _todo_
 
