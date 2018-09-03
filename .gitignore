@@ -12,3 +12,8 @@
 *.out
 
 *.DS_Store
+
+workspaces/betandr/bin
+workspaces/betandr/src/github.com
+workspaces/betandr/src/gopl.io
+workspaces/betandr/src/golang.org

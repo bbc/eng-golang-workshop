@@ -1,6 +1,8 @@
-# BBC Gophers — Go Language Workshop Repository
+# BBC Gophers — Go Language Workshop
 
-![Gopher](resources/gopher.png)
+<p align="center">
+  <img width="225" height="300" src="https://github.com/bbc/eng-golang-workshop/raw/master/resources/gopher.gif">
+</p>
 
 ```
 func main() {
@@ -8,26 +10,28 @@ func main() {
 }
 ```
 
-We are on Slack as #eng-golang
+## The Workshop
+We are on Slack as `#eng-golang`
 
-We use this book for study:
+Our workshop text is:
 [The Go Programming Language by Alan Donovan and Brian W. Kernighan](https://www.gopl.io/)
 
-Each week we will complete one chapter. To take part, create your own directory
-in the [workspaces](workspaces) directory with whatever name you chose. Change
-directory to your workspace Then un-tar the examples there.
+Feel free to work through the text at a speed that suits you, although one
+chapter per week is a good target to aim for (if you have the time). We also have
+sessions booked to meet to chat about Go and the book etc. So just join in any
+time! :)
+
+To join in, create your own directory in the [workspaces](workspaces) directory
+with whatever name you chose. Change directory to your workspace and then you
+can un-tar the examples there if you wish (or refer to your book).
 
 e.g.
-
 ```
 cd workspace
 mkdir bobbyfoo
 cd bobbyfoo
 tar xzvf ../../exercises.tar.gz
 ```
-
-Add any source code and stuff in the exercise directory. Commit directly to
-master. Just don't break things...well, fix things if they do break! :)
 
 ## Installing Go
 
@@ -40,7 +44,6 @@ managers.
 brew install go
 ```
 
-
 ### Install with Binary Distributions
 The [https://golang.org/dl/](https://golang.org/dl/) page contains distros for
 Windows, MacOS, Linux, and source. The
@@ -50,7 +53,53 @@ install them.
 ### Go Modules
 
 _Go modules_ are an experimental opt-in feature in Go 1.11. Follow this
-documentation to [install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
+documentation to
+[install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
+
+## Running Go
+
+To run your exercises without using _Go Modules_ you should set your `$GOPATH`
+to your current directory, such as:
+```
+export GOPATH=/home/bobbyf/eng-golang-workshop/workspaces/bobbyfoo
+```
+
+Then when runnning something like `go get gopl.io/ch1/helloworld` the source will
+be placed in your `$GOPATH/src` directory and
+`go build src/gopl.io/ch1/helloworld` will be placed in your `$GOPATH/bin`
+directory etc.
+
+A project structure could then be:
+
+```
+workspaces
+    bobbyfoo\
+        exercises\
+            ...
+        bin\
+            helloworld
+            ...
+        src\
+            bobbyfoo.com\
+                ch1\
+                    ex1_1\
+                        main.go
+                ...
+```
+
+Commit directly to master and fix stuff if it breaks. :)
+
+## Development Environments
+
+### GoLand
+_todo_
+
+### Emacs
+_todo_
+
+### Atom
+Atom supports Go development with the
+[go-plus](https://atom.io/packages/go-plus) package amongst other tools.
 
 ## Editors
 
@@ -82,3 +131,7 @@ So if you edit `/etc/paths.d/go` and add the path to the bin directory of your p
 [Effective Go](https://golang.org/doc/effective_go.html)
 
 [Source code: The Go Programming Language](https://github.com/adonovan/gopl.io)
+
+[YouTube: Concurrency is not Parallelism by Rob Pike](https://www.youtube.com/watch?v=oV9rvDllKEg)
+
+[YouTube: Go Proverbs](https://www.youtube.com/watch?v=PAAkCSZUG1c)
