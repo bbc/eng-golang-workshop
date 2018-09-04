@@ -143,4 +143,4 @@ To use Delve inside Atom, install the
 ## Rights
 All exercises from The Go Programming Language are copyright 2016 Alan A. A. Donovan & Brian W. Kernighan
 
-All submitted code is covered under [Apache License 2.0](LICENCE). 
+All submitted code is covered under [Apache License 2.0](LICENSE). 
