@@ -139,3 +139,8 @@ To use Delve inside Atom, install the
 [YouTube: Concurrency is not Parallelism by Rob Pike](https://www.youtube.com/watch?v=oV9rvDllKEg)
 
 [YouTube: Go Proverbs](https://www.youtube.com/watch?v=PAAkCSZUG1c)
+
+## Rights
+All exercises from The Go Programming Language are copyright 2016 Alan A. A. Donovan & Brian W. Kernighan and included with permission from the authors.
+
+All submitted code is covered under [Apache License 2.0](LICENSE). 
