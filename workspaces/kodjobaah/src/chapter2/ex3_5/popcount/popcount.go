@@ -1,4 +1,5 @@
 // reference used for popcount: https://arxiv.org/pdf/1611.07612.pdf
+// another useful reference: https://graphics.stanford.edu/~seander/bithacks.html
 package popcount
 
 // pc[i] is the population count of 1
