@@ -44,15 +44,15 @@ func parseInput(text string) (error, int, string) {
 func processUnit(unit string, num int) {
 	switch strings.ToLower(unit) {
 	case "k":
-		value := tempconv.Kelvin(float64(num))
+		value := tempconv.Kelvin(num)
 		fmt.Printf("Fahrenheit=%v Celsuis=%v\n", tempconv.KToF(value), tempconv.KToC(value))
 
 	case "f":
-		value := tempconv.Fahrenheit(float64(num))
+		value := tempconv.Fahrenheit(num)
 		fmt.Printf("Kelvin=%v Celsius=%v\n", tempconv.FToK(value), tempconv.FToC(value))
 
 	case "c":
-		value := tempconv.Celsius(float64(num))
+		value := tempconv.Celsius(num)
 		fmt.Printf("Kelvin=%v Fahrenheit=%v\n", tempconv.CToK(value), tempconv.CToF(value))
 
 	default:
