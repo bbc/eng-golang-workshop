@@ -8,6 +8,10 @@ import (
 	"testing"
 )
 
+func TestKelvinConversionWithSpace(t *testing.T) {
+	callFunction("Fahrenheit=-456.67°F Celsuis=-271.15°C", "2 k\n", t)
+}
+
 func TestKelvinConversion(t *testing.T) {
 	callFunction("Fahrenheit=-456.67°F Celsuis=-271.15°C", "2k\n", t)
 }

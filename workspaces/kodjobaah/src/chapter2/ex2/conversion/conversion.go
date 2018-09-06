@@ -35,7 +35,7 @@ func parseInput(text string) (error, int, string) {
 		err = errors.New("you need to provide a number with units .i.e 2K")
 	} else {
 		unit = text[len(text)-1:]
-		num := string(text[0 : len(text)-1])
+		num := strings.TrimSpace(string(text[0 : len(text)-1]))
 		convNum, err = strconv.Atoi(num)
 	}
 	return err, convNum, unit
