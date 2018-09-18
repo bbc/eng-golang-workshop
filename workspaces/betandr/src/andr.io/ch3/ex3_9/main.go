@@ -50,17 +50,24 @@ func main() {
 
 func draw(w io.Writer, xMin int, yMin int, xMax int, yMax int, zoom int) {
 	const (
-		xmin, ymin, xmax, ymax = -2, -2, +2, +2
-		width, height          = 1024, 1024
+		// 	xmin, ymin, xmax, ymax = -2, -2, +2, +2
+		width, height = 1024, 1024
 	)
 
-	// TODO: not finished yet...
+	lenX := xMax - xMin
+	midX := xMin + lenX/2
+	xMin = midX - lenX/2/zoom
+	xMax = midX + lenX/2/zoom
+	lenY := yMax - yMin
+	midY := yMin + lenY/2
+	yMin = midY - lenY/2/zoom
+	yMax = midY + lenY/2/zoom
 
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
 	for py := 0; py < height; py++ {
-		y := float64(py)/height*(ymax-ymin) + ymin
+		y := float64(py)/height*(float64(yMax)-float64(yMin)) + float64(yMin)
 		for px := 0; px < width; px++ {
-			x := float64(px)/width*(xmax-xmin) + xmin
+			x := float64(px)/width*(float64(xMax)-float64(xMin)) + float64(xMin)
 			z := complex(x, y)
 			// Image point (px, py) represents complex value z.
 			img.Set(px, py, mandelbrot(z))
