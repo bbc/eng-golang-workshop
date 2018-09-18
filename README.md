@@ -126,6 +126,9 @@ Atom supports Go development with the
 To use Delve inside Atom, install the 
 [go-debug](https://atom.io/packages/go-debug) package.
 
+To run your Go code in Atom, install the
+[atom-runner](https://atom.io/packages/atom-runner) package.
+
 ## Links
 
 [A Tour of Go](https://tour.golang.org/welcome/1)
