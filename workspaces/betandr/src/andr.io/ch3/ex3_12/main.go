@@ -34,8 +34,8 @@ func (s sortableRunes) Len() int {
 }
 
 // anagrams checks if two strings are anagrams of each other
+// n log n complexity due to two `sort.Sort`s which use quick sort.
 func anagrams(s1 string, s2 string) bool {
-
 	r1 := []rune(s1)
 	r2 := []rune(s2)
 	sort.Sort(sortableRunes(r1))
