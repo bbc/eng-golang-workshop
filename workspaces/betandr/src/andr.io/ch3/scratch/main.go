@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"strconv"
 	"unicode/utf8"
 )
 
@@ -73,5 +74,8 @@ func main() {
 	r := []rune(s)
 	fmt.Printf("% x\n", r)
 	fmt.Println(string(r))
+
+	fmt.Println(strconv.FormatInt(int64(123), 2))
+	fmt.Println(fmt.Sprintf("b=%b", int64(123)))
 
 }
