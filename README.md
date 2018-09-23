@@ -74,8 +74,6 @@ A project structure could be:
 ```
 workspaces
     bobbyfoo\
-        exercises\
-            ...
         bin\
             helloworld
             ...
