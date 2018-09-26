@@ -19,3 +19,8 @@ workspaces/betandr/bin
 workspaces/betandr/src/github.com
 workspaces/betandr/src/gopl.io
 workspaces/betandr/src/golang.org
+
+workspaces/garymacindoe/bin/*
+!workspaces/garymacindoe/bin/.keep
+workspaces/garymacindoe/src/*
+!workspaces/garymacindoe/src/garymacindoe.co.uk
