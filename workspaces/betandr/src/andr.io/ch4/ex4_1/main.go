@@ -3,6 +3,13 @@
 
 package main
 
-func main() {
+import (
+	"fmt"
 
+	"andr.io/ch4/ex4_1/popcount"
+)
+
+func main() {
+	var i uint64 = 240
+	fmt.Printf("%d\n", popcount.Count(i))
 }
