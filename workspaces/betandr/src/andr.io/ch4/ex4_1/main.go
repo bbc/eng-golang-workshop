@@ -4,12 +4,39 @@
 package main
 
 import (
+	"crypto/sha256"
 	"fmt"
+	"os"
 
 	"andr.io/ch4/ex4_1/popcount"
 )
 
 func main() {
-	var i uint64 = 240
-	fmt.Printf("%d\n", popcount.Count(i))
+	if len(os.Args) != 3 {
+		fmt.Println("Usage: shapc {string} {string}")
+		os.Exit(0)
+	}
+
+	s1 := sha256.Sum256([]byte(os.Args[1]))
+	s2 := sha256.Sum256([]byte(os.Args[2]))
+
+	diffCount := 0
+
+	for _, n := range s1 {
+		diffCount += popcount.Count(uint64(n))
+	}
+
+	for _, n := range s2 {
+		diffCount -= popcount.Count(uint64(n))
+	}
+
+	fmt.Printf("%d bits different\n", abs(diffCount))
+
+}
+
+func abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
 }
