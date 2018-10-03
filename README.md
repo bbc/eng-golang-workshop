@@ -17,17 +17,20 @@ We are on Slack as `#eng-golang`
 Our workshop text is:
 [The Go Programming Language by Alan Donovan and Brian W. Kernighan](https://www.gopl.io/)
 
-Feel free to work through the text at a speed that suits you, although one
+Work through the course text at a speed that suits you, although one
 chapter per week is a good target to aim for (if you have the time). We also have
 meetups booked to meet to chat about Go and the book etc. So just join in any
 time! :)
 
-To join in, create your own directory in the [workspaces](workspaces) directory,
+## Get Coding
+
+To begin, create your own directory in the [workspaces](workspaces) directory,
 work through the book exercises, and add your code there.
 [Project Structure](#project-structure) contains some ideas to structure your code.
 
 If you need the exercises from the book, they're available in
-[exercises.tar.gz](exercises.tar.gz) zipped archive.
+[exercises.tar.gz](exercises.tar.gz) zipped archive but these are already in the
+book so you might not need them.
 
 ## Installing Go
 
@@ -48,12 +51,23 @@ Windows, MacOS, Linux, and source. The
 [installation instructions](https://golang.org/doc/install) explains how to
 install them.
 
+## Getting the Workshop Code
+
+You can grab the code samples used in the book (which you update for a bunch of
+the exercises) by running such as:
+
+```
+go get gopl.io/ch1/helloworld
+```
+
+(This will get the `helloworld` code, plus the other examples).
+
 ## Running Go
 
 To run your exercises without using _Go Modules_ you should set your `$GOPATH`
 to your current directory, such as:
 ```
-export GOPATH=/home/bobbyf/eng-golang-workshop/workspaces/bobbyfoo
+export GOPATH=/home/gopherg/eng-golang-workshop/workspaces/gogopher
 ```
 
 Then when runnning something like `go get gopl.io/ch1/helloworld` the source will
@@ -73,12 +87,12 @@ A project structure could be:
 
 ```
 workspaces
-    bobbyfoo\
+    gogopher\
         bin\
             helloworld
             ...
         src\
-            bobbyfoo.com\
+            gogopher.io\
                 ch1\
                     ex1_1\
                         main.go
@@ -87,7 +101,7 @@ workspaces
 With this directory structure, and your $GOPATH set as in the
 [Running Go](#running-go) section you can run the `main.go` file with:
 
-`go run src/bobbyfoo.com/ch1/ex1_1/main.go`
+`go run src/gogopher.com/ch1/ex1_1/main.go`
 
 ...or use `go build` to build the binary.
 
