@@ -11,6 +11,7 @@ func main() {
 ```
 
 ## The Workshop
+
 We are on Slack as `#eng-golang`
 
 Our workshop text is:
@@ -18,24 +19,20 @@ Our workshop text is:
 
 Feel free to work through the text at a speed that suits you, although one
 chapter per week is a good target to aim for (if you have the time). We also have
-sessions booked to meet to chat about Go and the book etc. So just join in any
+meetups booked to meet to chat about Go and the book etc. So just join in any
 time! :)
 
-To join in, create your own directory in the [workspaces](workspaces) directory
-with whatever name you chose. Change directory to your workspace and then you
-can un-tar the examples there if you wish (or refer to your book).
+To join in, create your own directory in the [workspaces](workspaces) directory,
+work through the book exercises, and add your code there.
+[Project Structure](#project-structure) contains some ideas to structure your code.
 
-e.g.
-```
-cd workspace
-mkdir bobbyfoo
-cd bobbyfoo
-tar xzvf ../../exercises.tar.gz
-```
+If you need the exercises from the book, they're available in
+[exercises.tar.gz](exercises.tar.gz) zipped archive.
 
 ## Installing Go
 
 ###  Home/Linuxbrew
+
 It may be convenient to install the latest version of Go through the
 [Homebrew](https://brew.sh/) and [Linuxbrew](http://linuxbrew.sh/) package
 managers.
@@ -45,16 +42,11 @@ brew install go
 ```
 
 ### Install with Binary Distributions
+
 The [https://golang.org/dl/](https://golang.org/dl/) page contains distros for
 Windows, MacOS, Linux, and source. The
 [installation instructions](https://golang.org/doc/install) explains how to
 install them.
-
-### Go Modules
-
-_Go modules_ are an experimental opt-in feature in Go 1.11. Follow this
-documentation to
-[install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
 
 ## Running Go
 
@@ -69,13 +61,19 @@ be placed in your `$GOPATH/src` directory and
 `go build src/gopl.io/ch1/helloworld` will be placed in your `$GOPATH/bin`
 directory etc.
 
-A project structure could then be:
+## Go Modules
+
+_Go modules_ are an experimental opt-in feature in Go 1.11. Follow this
+documentation to
+[install and activate modules](https://github.com/golang/go/wiki/Modules#installing-and-activating-module-support).
+
+## Project Structure
+
+A project structure could be:
 
 ```
 workspaces
     bobbyfoo\
-        exercises\
-            ...
         bin\
             helloworld
             ...
@@ -86,12 +84,17 @@ workspaces
                         main.go
                 ...
 ```
+With this directory structure, and your $GOPATH set as in the
+[Running Go](#running-go) section you can run the `main.go` file with:
 
-Commit directly to master and fix stuff if it breaks. :)
+`go run src/bobbyfoo.com/ch1/ex1_1/main.go`
+
+...or use `go build` to build the binary.
 
 ## Development Environments
 
 ### Delve (Debugger)
+
 [Delve](https://github.com/derekparker/delve) is is a debugger for Go. To install run:
 ```
 go get -u github.com/derekparker/delve/cmd/dlv
@@ -99,6 +102,7 @@ go get -u github.com/derekparker/delve/cmd/dlv
 To see the available commands, run `dlv` then `help` at the `(dlv)` prompt.
 
 ### GoLand
+
 _todo_
 
 ### Emacs
@@ -120,11 +124,15 @@ https://emacs.stackexchange.com/questions/10722/emacs-and-command-line-path-disa
 So if you edit `/etc/paths.d/go` and add the path to the bin directory of your project it should fix problem.
 
 ### Atom
+
 Atom supports Go development with the
 [go-plus](https://atom.io/packages/go-plus) package.
 
-To use Delve inside Atom, install the 
+To use Delve inside Atom, install the
 [go-debug](https://atom.io/packages/go-debug) package.
+
+To run your Go code in Atom, install the
+[atom-runner](https://atom.io/packages/atom-runner) package.
 
 ## Links
 
@@ -141,6 +149,7 @@ To use Delve inside Atom, install the
 [YouTube: Go Proverbs](https://www.youtube.com/watch?v=PAAkCSZUG1c)
 
 ## Rights
+
 All exercises from The Go Programming Language are copyright 2016 Alan A. A. Donovan & Brian W. Kernighan and included with permission from the authors.
 
-All submitted code is covered under [Apache License 2.0](LICENSE). 
+All submitted code is covered under [Apache License 2.0](LICENSE).
