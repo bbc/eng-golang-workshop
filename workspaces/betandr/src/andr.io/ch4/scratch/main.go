@@ -15,7 +15,47 @@ func mutateByPointer(p *[3]int) {
 	p[0] = 8
 }
 
+// Reverse a slice
+func reverse(s []int) {
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		s[i], s[j] = s[j], s[i]
+	}
+}
+
+// Rotate a slice at a given position
+func rotate(pos int, s []int) {
+	reverse(s[:pos])
+	reverse(s[pos:])
+	reverse(s)
+}
+
+// Checks if two slices are equal
+func equal(x, y []string) bool {
+	if len(x) != len(y) {
+		return false
+	}
+
+	for i := range x {
+		if x[i] != y[i] {
+			return false
+		}
+	}
+
+	return true
+}
+
 func main() {
+	s1 := []string{"hello", "world"}
+	s2 := []string{"hello", "world"}
+	s3 := []string{"bonjour", "le monde"}
+
+	fmt.Println(equal(s1, s2))
+	fmt.Println(equal(s1, s3))
+
+	d := [...]int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+	rotate(3, d[:])
+	fmt.Println(d)
+
 	a := [...]int{1, 2, 3}
 	fmt.Printf("%T\n", a)
 
