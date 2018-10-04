@@ -17,10 +17,13 @@ func main() {
 
 	if *shaType == "sha256" {
 		fmt.Printf("%x\n", sha256.Sum256([]byte(*s)))
+
 	} else if *shaType == "sha384" {
 		fmt.Printf("%x\n", sha512.Sum384([]byte(*s)))
+
 	} else if *shaType == "sha512" {
 		fmt.Printf("%x\n", sha512.Sum512([]byte(*s)))
+
 	} else {
 		fmt.Println("unknown algorithm %s", *shaType)
 	}
