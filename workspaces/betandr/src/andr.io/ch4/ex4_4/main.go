@@ -5,18 +5,28 @@ package main
 import "fmt"
 
 // Rotates a slice of integers `s` at the position `pos` with a single pass
-// through the array.
-// (NB: This currently doesn't work properly for odd collections)
+// through the array, swapping from the last position to the first position
+// until all items are in order, running in O(n) time and using O(n) space.
 func rotate(pos int, s []int) {
 	k := len(s) - pos
-	for i, j := len(s)-1, pos; i > 1; i, j = i-1, j-1 {
+	stop := 0
+	if len(s)%2 == 0 {
+		stop = 1
+	}
+
+	for i, j := len(s)-1, pos; i > stop; i, j = i-1, j-1 {
 		if j <= 0 {
 			j = pos
 			k = k - pos
 		}
-		temp := s[i-k]
-		s[i-k] = s[i]
+		l := i - k
+		if i <= 2 {
+			l = 0
+		}
+		temp := s[l]
+		s[l] = s[i]
 		s[i] = temp
+		fmt.Printf("swap %d with %d\n", l, i)
 	}
 }
 
