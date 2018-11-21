@@ -8,28 +8,31 @@ import (
 	"unicode"
 )
 
-func squashAdjacentSpaces(phrase []rune) []rune {
+// squashAdjacentSpaces removes extra spaces from a byte slice, for example the
+// string "hello,         world" would be squashed to "hello, world"
+func squashAdjacentSpaces(phrase []byte) []byte {
+	runes := []rune(string(phrase)) // it's easier to handle runes!
 	i := 0
 	notSpace := true
-	for _, c := range phrase {
+	for _, c := range runes {
 		if unicode.IsSpace(c) {
 			if notSpace {
-				phrase[i] = c
+				runes[i] = c
 				i++
 				notSpace = false
 			}
 		} else {
-			phrase[i] = c
+			runes[i] = c
 			i++
 			notSpace = true
 		}
 	}
 
-	return phrase[:i]
+	return []byte(string(runes[:i])) // turn back into a byte array, as that's requested
 }
 
 func main() {
-	phrase := []rune("Finally,  as    the sky      began   to    grow           light")
+	phrase := []byte("Finally,  as    the sky      began   to    grow           light")
 	unspaced := squashAdjacentSpaces(phrase)
 	fmt.Println(string(unspaced))
 }
