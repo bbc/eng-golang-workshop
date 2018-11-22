@@ -8,9 +8,7 @@ import "fmt"
 func reverse(phrase []byte) []byte {
 	runes := []rune(string(phrase))
 	for i, j := 0, len(runes)-1; i < len(runes)/2; i, j = i+1, j-1 {
-		temp := runes[i]
-		runes[i] = runes[j]
-		runes[j] = temp
+		runes[i], runes[j] = runes[j], runes[i]
 	}
 
 	return []byte(string(runes))

@@ -23,9 +23,7 @@ func Rotate(pos int, s []int) {
 		if i <= 2 {
 			l = 0
 		}
-		temp := s[l]
-		s[l] = s[i]
-		s[i] = temp
+		s[l], s[i] = s[i], s[l]
 	}
 }
 
