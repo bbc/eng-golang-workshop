@@ -13,6 +13,6 @@ const (
     BoilingC      Celsius = 100
 )
 
-func (c Celsius) String() string { return fmt.Sprintf("%g슰C", c) }
-func (f Fahrenheit) String() string { return fmt.Sprintf("%g슰F", f) }
-func (k Kelvin) String() string { return fmt.Sprintf("%g슰", k) }
+func (c Celsius) String() string { return fmt.Sprintf("%g°C", c) }
+func (f Fahrenheit) String() string { return fmt.Sprintf("%g°F", f) }
+func (k Kelvin) String() string { return fmt.Sprintf("%g°", k) }
