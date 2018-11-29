@@ -1,8 +1,9 @@
+// Rewrite `reverse` to use an array pointer instead of a slice
+
 package main
 
 import "fmt"
 
-// Rotate a 10-item array at a given position
 func rotate(pos int, a *[10]int) {
 
 	for i, j := 0, pos-1; i <= j; i, j = i+1, j-1 {
