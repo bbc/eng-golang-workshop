@@ -1,12 +1,107 @@
 package github
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strings"
 )
+
+// TODO DRY these functions as they're all doing mostly the same thing!
+
+// MergePullRequest will merge an existing pull request
+func MergePullRequest(repo string, number int, title, message, method string) (*MergeStatus, error) {
+	reqURL := fmt.Sprintf("%s/repos/%s/pulls/%d/merge?", PullRequestsURL, repo, number)
+
+	if len(title) > 0 {
+		reqURL = fmt.Sprintf("%s&commit_title=%s", reqURL, title)
+	}
+
+	if len(message) > 0 {
+		reqURL = fmt.Sprintf("%s&commit_message=%s", reqURL, message)
+	}
+
+	if len(method) > 0 {
+		reqURL = fmt.Sprintf("%s&method=%s", reqURL, method)
+	}
+
+	req, err := http.NewRequest("PUT", reqURL, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	acceptHeaders := []string{"application/vnd.github.symmetra-preview+json", "application/vnd.github.sailor-v-preview+json"}
+	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
+	req.Header.Set("Authorization", fmt.Sprintf("token %s", os.Getenv("OAUTH_TOKEN")))
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		res.Body.Close()
+		return nil, fmt.Errorf("List PR %d commits from %s failed: %s", number, repo, res.Status)
+	}
+
+	var status *MergeStatus
+	if err := json.NewDecoder(res.Body).Decode(&status); err != nil {
+		res.Body.Close()
+		return nil, err
+	}
+
+	res.Body.Close()
+	return status, nil
+}
+
+// CreatePullRequest opens a new pull request
+func CreatePullRequest(repo, title, body, head, base string) (*PullRequest, error) {
+	reqURL := fmt.Sprintf("%s/repos/%s/pulls", PullRequestsURL, repo)
+
+	npr := NewPullRequest{title, body, head, base}
+	prs, err := json.Marshal(npr)
+	if err != nil {
+		log.Fatalf("JSON marshaling failed: %s", err)
+	}
+
+	req, err := http.NewRequest("POST", reqURL, bytes.NewBuffer(prs))
+	req.Header.Set("Content-Type", "application/json")
+	if err != nil {
+		return nil, err
+	}
+
+	acceptHeaders := []string{"application/vnd.github.symmetra-preview+json", "application/vnd.github.sailor-v-preview+json"}
+	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
+	req.Header.Set("Authorization", fmt.Sprintf("token %s", os.Getenv("OAUTH_TOKEN")))
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusCreated {
+		var error *Error
+		json.NewDecoder(res.Body).Decode(&error)
+		res.Body.Close()
+
+		if len(error.Errors) > 0 {
+			return nil, fmt.Errorf("Error creating PR %s", error.Errors[0].Message)
+		}
+
+		return nil, fmt.Errorf("Create PR failed: %s", res.Status)
+	}
+
+	var pr *PullRequest
+	if err := json.NewDecoder(res.Body).Decode(&pr); err != nil {
+		res.Body.Close()
+		return nil, err
+	}
+
+	return pr, nil
+}
 
 // ListPullRequestStatuses returns the statuses from a pull request
 func ListPullRequestStatuses(reqURL string) ([]*Status, error) {
@@ -26,7 +121,7 @@ func ListPullRequestStatuses(reqURL string) ([]*Status, error) {
 
 	if res.StatusCode != http.StatusOK {
 		res.Body.Close()
-		return nil, fmt.Errorf("GET PR statuses failed: %s", res.Status)
+		return nil, fmt.Errorf("List PR statuses failed: %s", res.Status)
 	}
 
 	var statuses []*Status
@@ -59,7 +154,7 @@ func ListPullRequestComments(repo string, number int) ([]*Comment, error) {
 
 	if res.StatusCode != http.StatusOK {
 		res.Body.Close()
-		return nil, fmt.Errorf("GET PR %d commits from %s failed: %s", number, repo, res.Status)
+		return nil, fmt.Errorf("List PR %d commits from %s failed: %s", number, repo, res.Status)
 	}
 
 	var comments []*Comment
@@ -92,7 +187,7 @@ func ListPullRequestCommits(repo string, number int) ([]*Commit, error) {
 
 	if res.StatusCode != http.StatusOK {
 		res.Body.Close()
-		return nil, fmt.Errorf("GET PR %d commits from %s failed: %s", number, repo, res.Status)
+		return nil, fmt.Errorf("List PR %d commits from %s failed: %s", number, repo, res.Status)
 	}
 
 	var commits []*Commit
@@ -125,7 +220,7 @@ func GetPullRequest(repo string, number int) (*PullRequest, error) {
 
 	if res.StatusCode != http.StatusOK {
 		res.Body.Close()
-		return nil, fmt.Errorf("GET PR %d from %s failed: %s", number, repo, res.Status)
+		return nil, fmt.Errorf("Get PR %d from %s failed: %s", number, repo, res.Status)
 	}
 
 	var result *PullRequest
@@ -163,7 +258,7 @@ func ListPullRequests(repo string, allIssues bool) (*PullRequestsResult, error) 
 
 	if res.StatusCode != http.StatusOK {
 		res.Body.Close()
-		return nil, fmt.Errorf("list PRs from %s failed: %s", repo, res.Status)
+		return nil, fmt.Errorf("List PRs from %s failed: %s", repo, res.Status)
 	}
 
 	var pulls []*PullRequest

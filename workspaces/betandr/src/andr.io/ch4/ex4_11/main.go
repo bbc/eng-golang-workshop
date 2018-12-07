@@ -5,8 +5,10 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
+	"os/exec"
 	"strconv"
 	"strings"
 	"time"
@@ -38,15 +40,15 @@ func merged(at time.Time) bool {
 
 func makePhrase(inverse bool, s string) string {
 	if inverse {
-		return "not " + s
+		return s
 	}
 
-	return s
+	return "not " + s
 }
 
 func renderCommit(commit *github.Commit) {
 	fmt.Printf("%s\n", strings.Replace(commit.Message, "\n", " ", -1))
-	fmt.Printf("[\x1b[36;1m%s\x1b[0m] %s\n", commit.SHA, commit.Author.Login)
+	fmt.Printf("%s [\x1b[36;1m%s\x1b[0m]\n", commit.Author.Login, commit.SHA)
 }
 
 func renderComment(comment *github.Comment) {
@@ -114,31 +116,95 @@ func renderPull(pr *github.PullRequest, extra bool) {
 	}
 }
 
+func renderMergeStatus(status *github.MergeStatus) {
+	fmt.Printf("%s [\x1b[36;1m%s\x1b[0m]\n", status.Message, status.SHA)
+}
+
 func main() {
 	// This is a work in progress; it's not finished yet and pretty brittle! ;)
-	if len(os.Args) <= 2 {
-		fmt.Println("Usage: prt {owner/repo} {list|get|create|delete}")
+
+	if len(os.Args) <= 1 {
+		fmt.Println("Usage: prt {list|get|create|delete} {owner/repo} {...}")
 		os.Exit(0)
 	}
 
-	if os.Args[2] == "get" {
+	if os.Args[1] == "help" {
+		fmt.Println("List:\tprt list owner/repo (optional: --all)")
+		fmt.Println("Get:\tprt get owner/repo {number}")
+		fmt.Println("Create:\tprt create owner/repo {branch} {base} {title}")
+		fmt.Println("Merge:\tprt merge owner/repo {number} (optional: {title} {message} {method} (merge, squash or rebase))")
+		os.Exit(0)
+	}
+
+	if os.Args[1] == "merge" {
+		var title string
+		var message string
+		var method string
+
+		if len(os.Args) > 4 && len(os.Args[4]) > 0 {
+			title = os.Args[4]
+		}
+
+		if len(os.Args) > 5 && len(os.Args[5]) > 0 {
+			message = os.Args[5]
+		}
+
+		if len(os.Args) > 6 && len(os.Args[6]) > 0 {
+			method = os.Args[6]
+		} else {
+			method = "merge"
+		}
+
+		number, err := strconv.Atoi(os.Args[3])
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Could not merge PR with number %s", os.Args[3])
+			os.Exit(1)
+		}
+
+		status, err := github.MergePullRequest(os.Args[2], number, title, message, method)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		renderMergeStatus(status)
+
+	} else if os.Args[1] == "create" {
+		filename := "4afc7c1fecb812c8cb140d072315a8a5"
+		cmd := exec.Command("vim", filename)
+		cmd.Stdout = os.Stdout
+		cmd.Stdin = os.Stdin
+		cmd.Stderr = os.Stderr
+		cmd.Run()
+
+		body, _ := ioutil.ReadFile(filename)
+
+		os.Remove(filename)
+
+		pr, err := github.CreatePullRequest(os.Args[2], os.Args[5], string(body), os.Args[3], os.Args[4])
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		renderPull(pr, false)
+
+	} else if os.Args[1] == "get" {
 		number, err := strconv.Atoi(os.Args[3])
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Could not get PR with number %s from %s", os.Args[4], os.Args[3])
 			os.Exit(1)
 		}
 
-		pr, err := github.GetPullRequest(os.Args[1], number)
+		pr, err := github.GetPullRequest(os.Args[2], number)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		commits, err := github.ListPullRequestCommits(os.Args[1], number)
+		commits, err := github.ListPullRequestCommits(os.Args[2], number)
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		comments, err := github.ListPullRequestComments(os.Args[1], number)
+		comments, err := github.ListPullRequestComments(os.Args[2], number)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -168,12 +234,12 @@ func main() {
 				renderComment(c)
 			}
 		}
-	} else if os.Args[2] == "list" {
+	} else if os.Args[1] == "list" {
 		allIssues := false
 		if len(os.Args) > 3 && os.Args[3] == "--all" {
 			allIssues = true
 		}
-		result, err := github.ListPullRequests(os.Args[1], allIssues)
+		result, err := github.ListPullRequests(os.Args[2], allIssues)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -181,5 +247,7 @@ func main() {
 		for _, pr := range result.PullRequests {
 			renderPull(pr, false)
 		}
+	} else {
+		fmt.Printf("Unknown command: %s\n", os.Args[1])
 	}
 }

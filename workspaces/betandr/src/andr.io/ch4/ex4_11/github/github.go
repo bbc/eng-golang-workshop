@@ -61,6 +61,32 @@ type Status struct {
 	UpdatedAt   time.Time `json:"updated_at"`
 }
 
+// NewPullRequest is used when opening a new pull request
+type NewPullRequest struct {
+	Title string `json:"title"`
+	Body  string `json:"body"`
+	Head  string `json:"head"`
+	Base  string `json:"base"`
+}
+
+// Error shows feedback from the API
+type Error struct {
+	Message string
+	Errors  []*ErrorMessage
+}
+
+// ErrorMessage is used in an `Error`
+type ErrorMessage struct {
+	Message string
+}
+
+// MergeStatus shows the status of a merge request
+type MergeStatus struct {
+	SHA     string `json:"sha"`
+	Merged  bool   `json:"merged"`
+	Message string `json:"message"`
+}
+
 // PullRequest represents a single pull request
 type PullRequest struct {
 	Number             int
