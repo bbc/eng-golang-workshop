@@ -10,6 +10,9 @@ import (
 	"strings"
 )
 
+// DEVELOPMENT OF THIS HAS NOW MOVED TO https://github.com/betandr/prt
+// THIS WON'T BE UPDATED ANYMORE SO WILL CONTAIN BUGS ETC
+
 // TODO DRY these functions as they're all doing mostly the same thing
 
 // TODO refactor to accept a struct instead of param list

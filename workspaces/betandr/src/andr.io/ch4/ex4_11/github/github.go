@@ -2,6 +2,9 @@ package github
 
 import "time"
 
+// DEVELOPMENT OF THIS HAS NOW MOVED TO https://github.com/betandr/prt
+// THIS WON'T BE UPDATED ANYMORE SO WILL CONTAIN BUGS ETC
+
 // PullRequestsURL is the Github API URL
 const PullRequestsURL = "https://api.github.com"
 

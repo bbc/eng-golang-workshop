@@ -3,6 +3,9 @@
 // when substantial text input is required.
 package main
 
+// DEVELOPMENT OF THIS HAS NOW MOVED TO https://github.com/betandr/prt
+// THIS WON'T BE UPDATED ANYMORE SO WILL CONTAIN BUGS ETC
+
 import (
 	"fmt"
 	"io/ioutil"
@@ -180,8 +183,29 @@ func main() {
 		renderPull(updatedPr, true)
 
 	} else if os.Args[1] == "close" {
-		// todo update `state` to `closed`
-		fmt.Println("Not yet implemented")
+		number, err := strconv.Atoi(os.Args[3])
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Could not update PR with number %s", os.Args[3])
+			os.Exit(1)
+		}
+
+		pr, err := github.GetPullRequest(os.Args[2], number)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		updatedPr, err := github.UpdatePullRequest(
+			os.Args[2],
+			number,
+			pr.Title,
+			pr.Body,
+			"closed",
+			pr.Base.Ref)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		renderPull(updatedPr, true)
 
 	} else if os.Args[1] == "merge" {
 		var title string
