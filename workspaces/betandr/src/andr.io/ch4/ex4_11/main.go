@@ -132,11 +132,58 @@ func main() {
 		fmt.Println("List:\tprt list owner/repo (optional: --all)")
 		fmt.Println("Get:\tprt get owner/repo {number}")
 		fmt.Println("Create:\tprt create owner/repo {branch} {base} {title}")
+		fmt.Println("Update:\tprt update owner/repo {number} {base} {title}")
 		fmt.Println("Merge:\tprt merge owner/repo {number} (optional: {title} {message} {method} (merge, squash or rebase))")
+		fmt.Println("Close:\tprt close owner/repo {number}")
 		os.Exit(0)
 	}
 
-	if os.Args[1] == "merge" {
+	if os.Args[1] == "update" {
+		number, err := strconv.Atoi(os.Args[3])
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Could not update PR with number %s", os.Args[3])
+			os.Exit(1)
+		}
+
+		pr, err := github.GetPullRequest(os.Args[2], number)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		filename := "4afc7c1fecb812c8cb140d072315a8a5"
+		writeErr := ioutil.WriteFile(filename, []byte(pr.Body), 0644)
+		if writeErr != nil {
+			log.Fatal(err)
+		}
+
+		cmd := exec.Command("vim", filename)
+		cmd.Stdout = os.Stdout
+		cmd.Stdin = os.Stdin
+		cmd.Stderr = os.Stderr
+		cmd.Run()
+
+		body, _ := ioutil.ReadFile(filename)
+
+		os.Remove(filename)
+
+		updatedPr, err := github.UpdatePullRequest(
+			os.Args[2],
+			number,
+			os.Args[5],
+			string(body),
+			pr.State,
+			os.Args[4])
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		renderPull(updatedPr, true)
+
+	} else if os.Args[1] == "close" {
+		// todo update `state` to `closed`
+		fmt.Println("Not yet implemented")
+
+	} else if os.Args[1] == "merge" {
 		var title string
 		var message string
 		var method string

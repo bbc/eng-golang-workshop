@@ -10,7 +10,48 @@ import (
 	"strings"
 )
 
-// TODO DRY these functions as they're all doing mostly the same thing!
+// TODO DRY these functions as they're all doing mostly the same thing
+
+// TODO refactor to accept a struct instead of param list
+
+// UpdatePullRequest updates an existing pull request
+func UpdatePullRequest(repo string, number int, title, body, state, base string) (*PullRequest, error) {
+	reqURL := fmt.Sprintf("%s/repos/%s/pulls/%d", PullRequestsURL, repo, number)
+
+	ppr := PatchPullRequest{title, body, state, base}
+	patch, err := json.Marshal(ppr)
+	if err != nil {
+		log.Fatalf("JSON marshaling failed: %s", err)
+	}
+
+	req, err := http.NewRequest("PATCH", reqURL, bytes.NewBuffer(patch))
+	req.Header.Set("Content-Type", "application/json")
+	if err != nil {
+		return nil, err
+	}
+
+	acceptHeaders := []string{"application/vnd.github.symmetra-preview+json", "application/vnd.github.sailor-v-preview+json"}
+	req.Header.Set("Accept", strings.Join(acceptHeaders, ", "))
+	req.Header.Set("Authorization", fmt.Sprintf("token %s", os.Getenv("OAUTH_TOKEN")))
+
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode != http.StatusOK {
+		res.Body.Close()
+		return nil, fmt.Errorf("Update PR %d commits from %s failed: %s", number, repo, res.Status)
+	}
+
+	var pr *PullRequest
+	if err := json.NewDecoder(res.Body).Decode(&pr); err != nil {
+		res.Body.Close()
+		return nil, err
+	}
+
+	return pr, nil
+}
 
 // MergePullRequest will merge an existing pull request
 func MergePullRequest(repo string, number int, title, message, method string) (*MergeStatus, error) {

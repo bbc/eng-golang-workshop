@@ -69,6 +69,14 @@ type NewPullRequest struct {
 	Base  string `json:"base"`
 }
 
+// PatchPullRequest is used to update a PR
+type PatchPullRequest struct {
+	Title string `json:"title"`
+	Body  string `json:"body"`
+	State string `json:"state"`
+	Base  string `json:"base"`
+}
+
 // Error shows feedback from the API
 type Error struct {
 	Message string
