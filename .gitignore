@@ -19,6 +19,7 @@ workspaces/betandr/bin
 workspaces/betandr/src/github.com
 workspaces/betandr/src/gopl.io
 workspaces/betandr/src/golang.org
+workspaces/betandr/src/andr.io/ch4/ex4_12/index
 
 workspaces/garymacindoe/bin/*
 !workspaces/garymacindoe/bin/.keep
