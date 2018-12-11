@@ -47,13 +47,13 @@ func UpdatePullRequest(repo string, number int, title, body, state, base string)
 		return nil, fmt.Errorf("Update PR %d commits from %s failed: %s", number, repo, res.Status)
 	}
 
-	var pr *PullRequest
+	var pr PullRequest
 	if err := json.NewDecoder(res.Body).Decode(&pr); err != nil {
 		res.Body.Close()
 		return nil, err
 	}
 
-	return pr, nil
+	return &pr, nil
 }
 
 // MergePullRequest will merge an existing pull request
@@ -91,14 +91,14 @@ func MergePullRequest(repo string, number int, title, message, method string) (*
 		return nil, fmt.Errorf("List PR %d commits from %s failed: %s", number, repo, res.Status)
 	}
 
-	var status *MergeStatus
+	var status MergeStatus
 	if err := json.NewDecoder(res.Body).Decode(&status); err != nil {
 		res.Body.Close()
 		return nil, err
 	}
 
 	res.Body.Close()
-	return status, nil
+	return &status, nil
 }
 
 // CreatePullRequest opens a new pull request
@@ -127,7 +127,7 @@ func CreatePullRequest(repo, title, body, head, base string) (*PullRequest, erro
 	}
 
 	if res.StatusCode != http.StatusCreated {
-		var error *Error
+		var error Error
 		json.NewDecoder(res.Body).Decode(&error)
 		res.Body.Close()
 
@@ -138,13 +138,13 @@ func CreatePullRequest(repo, title, body, head, base string) (*PullRequest, erro
 		return nil, fmt.Errorf("Create PR failed: %s", res.Status)
 	}
 
-	var pr *PullRequest
+	var pr PullRequest
 	if err := json.NewDecoder(res.Body).Decode(&pr); err != nil {
 		res.Body.Close()
 		return nil, err
 	}
 
-	return pr, nil
+	return &pr, nil
 }
 
 // ListPullRequestStatuses returns the statuses from a pull request
@@ -267,14 +267,14 @@ func GetPullRequest(repo string, number int) (*PullRequest, error) {
 		return nil, fmt.Errorf("Get PR %d from %s failed: %s", number, repo, res.Status)
 	}
 
-	var result *PullRequest
+	var result PullRequest
 	if err := json.NewDecoder(res.Body).Decode(&result); err != nil {
 		res.Body.Close()
 		return nil, err
 	}
 
 	res.Body.Close()
-	return result, nil
+	return &result, nil
 }
 
 // ListPullRequests returns all pull requests for a repo

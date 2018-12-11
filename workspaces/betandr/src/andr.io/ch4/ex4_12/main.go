@@ -51,7 +51,7 @@ func main() {
 			log.Fatal(err)
 		}
 
-		var comic *Comic
+		var comic Comic
 		if err := json.NewDecoder(comicFile).Decode(&comic); err != nil {
 			log.Fatal(err)
 		}
