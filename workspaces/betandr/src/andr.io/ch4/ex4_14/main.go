@@ -3,19 +3,24 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"log"
 	"net/http"
 
-	"gopl.io/ch4/github"
+	"andr.io/ch4/ex4_14/github"
 )
 
 func main() {
 	issues := func(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
-		terms := r.Form["terms"]
-		issues(terms, w)
+		terms := r.Form["q"]
+		if len(terms) < 1 {
+			fmt.Fprint(w, "Please supply a search query, such as ?q=foo")
+		} else {
+			issues(terms, w)
+		}
 	}
 
 	http.HandleFunc("/issues/", issues)
@@ -25,13 +30,14 @@ func main() {
 
 func issues(terms []string, out io.Writer) {
 	templ := `
-    <h1>{{.TotalCount}} issues</h1>
+	<h1>{{.TotalCount}} issues</h1>
     <table>
     <tr style='text-align: left'>
       <th>#</th>
       <th>State</th>
       <th>User</th>
       <th>Title</th>
+	  <th>Milestone</th>
     </tr>
     {{range .Items}}
     <tr>
@@ -39,6 +45,7 @@ func issues(terms []string, out io.Writer) {
       <td>{{.State}}</td>
       <td><a href='{{.User.HTMLURL}}'>{{.User.Login}}</a></td>
       <td><a href='{{.HTMLURL}}'>{{.Title}}</a></td>
+	  <td><a href='{{.Milestone.HTMLURL}}'>{{.Milestone.Title}}</a></td>
     </tr>
     {{end}}
     </table>
