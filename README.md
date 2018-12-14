@@ -12,7 +12,7 @@ func main() {
 
 ## The Workshop
 
-We are on Slack as `#eng-golang`
+We are on Slack in the `#eng-golang` channel.
 
 Our workshop text is:
 [The Go Programming Language by Alan Donovan and Brian W. Kernighan](https://www.gopl.io/)
@@ -24,10 +24,10 @@ time! :)
 ## 1. Begin
 
 To begin, create your own directory in the [workspaces](workspaces) directory,
-work through the book exercises, and add your code there. You can add your code  
+work through the book exercises, and add your code there. You can add your code
 in separate directories if you're using Go Modules or if you're using a GOPATH
 you could structure your code as in the
-[GOPATH Project Structure](#GOPATH Project Structure).
+[GOPATH Project Structure](#gopath-project-structure) section.
 
 If you need the exercises from the book, they're available in
 [exercises.tar.gz](exercises.tar.gz) zipped archive but these are already in the
@@ -117,7 +117,7 @@ workspaces
 
 ### b. Running Go with Go Modules)
 
-_Go modules_ are an experimental feature in Go 1.11 which removes the need to
+_Go modules_ are an new feature in Go 1.11 which removes the need to
 have a `$GOPATH` set.
 
 To use modules in your project directory, run:
@@ -150,6 +150,8 @@ require (
 ```
 ...then import it and use it in your code:
 ```
+package main
+
 import "github.com/some/dependency"
 
 func main() {

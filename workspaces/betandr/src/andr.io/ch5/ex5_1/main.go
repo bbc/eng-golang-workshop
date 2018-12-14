@@ -15,13 +15,14 @@ func main() {
 		fmt.Fprintf(os.Stderr, "findlinks: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Println("---")
+
 	for _, link := range visit(nil, doc) {
 		fmt.Println(link)
 	}
 }
 
 func visit(links []string, n *html.Node) []string {
+	// todo - write it out on the whiteboard
 	if n.Type == html.ElementNode && n.Data == "a" {
 		for _, a := range n.Attr {
 			if a.Key == "href" {

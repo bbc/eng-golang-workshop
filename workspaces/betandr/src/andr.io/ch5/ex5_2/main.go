@@ -15,7 +15,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "findlinks: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Println("---")
+
 	for element, count := range visit(nil, doc) {
 		fmt.Printf("%s %d\n", element, count)
 	}
@@ -30,13 +30,8 @@ func visit(elements map[string]int, n *html.Node) map[string]int {
 		elements[n.Data]++
 	}
 
-	if n.FirstChild != nil {
-		elements = visit(elements, n.FirstChild)
+	for c := n.FirstChild; c != nil; c = c.NextSibling {
+		elements = visit(elements, c)
 	}
-
-	if n.NextSibling != nil {
-		elements = visit(elements, n.NextSibling)
-	}
-
 	return elements
 }
