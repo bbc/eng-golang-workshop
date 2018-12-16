@@ -49,7 +49,7 @@ func corner(i, j int) (float64, float64, error) {
 	y := xyrange * (float64(j)/cells - 0.5)
 
 	// Compute surface height z.
-	z := f(x, y)
+	z := k(x, y)
 	if math.IsInf(z, 0) {
 		return 0.0, 0.0, errors.New("function returned +/- Infinity")
         }
@@ -63,6 +63,25 @@ func corner(i, j int) (float64, float64, error) {
 func f(x, y float64) float64 {
 	r := math.Hypot(x, y) // distance from (0,0)
 	return math.Sin(r) / r
+}
+
+// Egg box - http://benchmarkfcns.xyz/benchmarkfcns/eggcratefcn.html
+func g(x, y float64) float64 {
+	r := x * x + y * y + 25 * (math.Sin(x) * math.Sin(x) + math.Sin(y) * math.Sin(y))
+	return r * 0.001
+}
+
+// Moguls
+func h(x, y float64) float64 {
+	r := g(x, y)
+	return math.Max(r, 0.0)
+}
+
+// Saddle plot
+func k(x, y float64) float64 {
+	var a, b, c = 25.0, 25.0, 1.0
+	z := (x * x) / (a * a) - (y * y) / (b * b)
+	return z * c
 }
 
 //!-
