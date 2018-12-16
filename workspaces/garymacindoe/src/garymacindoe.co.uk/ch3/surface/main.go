@@ -35,8 +35,12 @@ func main() {
 			cx, cy, errc := corner(i, j+1)
 			dx, dy, errd := corner(i+1, j+1)
 			if erra == nil && errb == nil && errc == nil && errd == nil {
-				fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g'/>\n",
-					ax, ay, bx, by, cx, cy, dx, dy)
+				x := xyrange * (float64(i)/cells - 0.5)
+				y := xyrange * (float64(j)/cells - 0.5)
+				z := f(x, y)
+				r, g, b := hslToRgb(z, 0.5, 0.5)
+				fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='#%X%X%X'/>\n",
+					ax, ay, bx, by, cx, cy, dx, dy, r, g, b)
 			}
 		}
 	}
@@ -49,7 +53,7 @@ func corner(i, j int) (float64, float64, error) {
 	y := xyrange * (float64(j)/cells - 0.5)
 
 	// Compute surface height z.
-	z := k(x, y)
+	z := f(x, y)
 	if math.IsInf(z, 0) {
 		return 0.0, 0.0, errors.New("function returned +/- Infinity")
         }
@@ -82,6 +86,45 @@ func k(x, y float64) float64 {
 	var a, b, c = 25.0, 25.0, 1.0
 	z := (x * x) / (a * a) - (y * y) / (b * b)
 	return z * c
+}
+
+func hslToRgb(h float64, s float64, l float64) (uint8, uint8, uint8) {
+    var r, g, b float64
+
+    if s == 0 {
+        r = l
+        g = l
+        b = l
+    } else {
+        var hue2rgb = func(p float64, q float64, t float64) float64 {
+            if t < 0.0 { t += 1.0 }
+            if t > 1.0 { t -= 1.0 }
+            if t < 1.0/6.0 { return p + (q - p) * 6.0 * t }
+            if t < 1.0/2.0 { return q }
+            if t < 2.0/3.0 { return p + (q - p) * (2.0/3.0 - t) * 6.0 }
+            return p
+        }
+        var q float64
+        if l < 0.5 {
+            q = l * (1.0 + s)
+        } else {
+            q = l + s - l * s
+        }
+        var p = 2.0 * l - q
+        r = hue2rgb(p, q, h + 1.0/3.0)
+        g = hue2rgb(p, q, h)
+        b = hue2rgb(p, q, h - 1.0/3.0)
+    }
+
+    return Round(r * 255.0), Round(g * 255.0), Round(b * 255.0)
+}
+
+func Round(x float64) uint8 {
+    t := math.Trunc(x)
+    if math.Abs(x-t) >= 0.5 {
+        return uint8(t + math.Copysign(1, x))
+    }
+    return uint8(t)
 }
 
 //!-
