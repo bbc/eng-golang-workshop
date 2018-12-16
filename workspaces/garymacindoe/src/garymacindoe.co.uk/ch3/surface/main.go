@@ -10,7 +10,11 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io"
+	"log"
 	"math"
+	"net/http"
+	"os"
 )
 
 const (
@@ -25,7 +29,20 @@ const (
 var sin30, cos30 = math.Sin(angle), math.Cos(angle) // sin(30°), cos(30°)
 
 func main() {
-	fmt.Printf("<svg xmlns='http://www.w3.org/2000/svg' "+
+	if len(os.Args) > 1 && os.Args[1] == "web" {
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Content-Type", "image/svg+xml")
+			surface(w)
+		}
+		http.HandleFunc("/", handler)
+		log.Fatal(http.ListenAndServe(":8000", nil))
+		return
+	}
+	surface(os.Stdout)
+}
+
+func surface(out io.Writer) {
+	fmt.Fprintf(out, "<svg xmlns='http://www.w3.org/2000/svg' "+
 		"style='stroke: grey; fill: white; stroke-width: 0.7' "+
 		"width='%d' height='%d'>", width, height)
 	for i := 0; i < cells; i++ {
@@ -39,12 +56,12 @@ func main() {
 				y := xyrange * (float64(j)/cells - 0.5)
 				z := f(x, y)
 				r, g, b := hslToRgb(z, 0.5, 0.5)
-				fmt.Printf("<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='#%X%X%X'/>\n",
+				fmt.Fprintf(out, "<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='#%X%X%X'/>\n",
 					ax, ay, bx, by, cx, cy, dx, dy, r, g, b)
 			}
 		}
 	}
-	fmt.Println("</svg>")
+	fmt.Fprintln(out, "</svg>")
 }
 
 func corner(i, j int) (float64, float64, error) {
