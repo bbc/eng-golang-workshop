@@ -25,9 +25,9 @@ time! :)
 
 To begin, create your own directory in the [workspaces](workspaces) directory,
 work through the book exercises, and add your code there. You can add your code
-in separate directories if you're using Go Modules or if you're using a GOPATH
-you could structure your code as in the
-[GOPATH Project Structure](#gopath-project-structure) section.
+in separate directories if you're using [Go Modules](#b-running-go-with-go-modules)
+or if you're [using a GOPATH](#a-running-go-with-a-gopath) you could structure your 
+code as in the [GOPATH Project Structure](#gopath-project-structure) section.
 
 If you need the exercises from the book, they're available in
 [exercises.tar.gz](exercises.tar.gz) zipped archive but these are already in the
