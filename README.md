@@ -83,7 +83,7 @@ To run some code you can then use:
 ```
 go run gopl.io/ch1/helloworld
 ```
-_(which actually builds then executes `/home/gopherg/eng-golang-workshop/workspaces/gogophersrc/gopl.io/ch1/helloworld/main.go`)_
+_(which actually builds then executes `/home/gopherg/eng-golang-workshop/workspaces/gogopher/src/gopl.io/ch1/helloworld/main.go`)_
 
 To build it and output in your `$GOPATH\bin` directory:
 ```
