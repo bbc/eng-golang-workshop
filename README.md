@@ -64,7 +64,7 @@ go get gopl.io/ch1/helloworld
 
 (This will get the `helloworld` code, plus the other examples).
 
-## 4. Running and Building Go
+## 4. Building and Running Go
 
 There are two main options, by setting a `GOPATH` and having all of your code in one
 location or using _Go Modules_ which allow you to split your code into separate
@@ -83,7 +83,7 @@ To run some code you can then use:
 ```
 go run gopl.io/ch1/helloworld
 ```
-_(which actually executes `src/gopl.io/ch1/helloworld/main.go`)_
+_(which actually builds then executes `/home/gopherg/eng-golang-workshop/workspaces/gogophersrc/gopl.io/ch1/helloworld/main.go`)_
 
 To build it and output in your `$GOPATH\bin` directory:
 ```
