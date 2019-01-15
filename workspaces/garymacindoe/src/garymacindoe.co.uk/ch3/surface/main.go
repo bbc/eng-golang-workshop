@@ -15,14 +15,12 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 const (
-	width, height = 600, 320            // canvas size in pixels
 	cells         = 100                 // number of grid cells
 	xyrange       = 30.0                // axis ranges (-xyrange..+xyrange)
-	xyscale       = width / 2 / xyrange // pixels per x or y unit
-	zscale        = height * 0.4        // pixels per z unit
 	angle         = math.Pi / 6         // angle of x, y axes (=30°)
 )
 
@@ -32,39 +30,47 @@ func main() {
 	if len(os.Args) > 1 && os.Args[1] == "web" {
 		handler := func(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "image/svg+xml")
-			surface(w)
+                        height := ParseInt(r.FormValue("height"), 10, 32, 320)
+			width := ParseInt(r.FormValue("width"), 10, 32, 640)
+			colour := r.FormValue("colour")
+			surface(w, height, width, colour)
 		}
 		http.HandleFunc("/", handler)
 		log.Fatal(http.ListenAndServe(":8000", nil))
 		return
 	}
-	surface(os.Stdout)
+	surface(os.Stdout, 320, 640, "000000")
 }
 
-func surface(out io.Writer) {
+func surface(out io.Writer, height int64, width int64, colour string) {
+	xyscale       := float64(width) / 2.0 / float64(xyrange) // pixels per x or y unit
+	zscale        := float64(height) * 0.4        // pixels per z unit
 	fmt.Fprintf(out, "<svg xmlns='http://www.w3.org/2000/svg' "+
 		"style='stroke: grey; fill: white; stroke-width: 0.7' "+
 		"width='%d' height='%d'>", width, height)
 	for i := 0; i < cells; i++ {
 		for j := 0; j < cells; j++ {
-			ax, ay, erra := corner(i+1, j)
-			bx, by, errb := corner(i, j)
-			cx, cy, errc := corner(i, j+1)
-			dx, dy, errd := corner(i+1, j+1)
+			ax, ay, erra := corner(i+1, j,   width, height, xyscale, zscale)
+			bx, by, errb := corner(i,   j,   width, height, xyscale, zscale)
+			cx, cy, errc := corner(i,   j+1, width, height, xyscale, zscale)
+			dx, dy, errd := corner(i+1, j+1, width, height, xyscale, zscale)
 			if erra == nil && errb == nil && errc == nil && errd == nil {
-				x := xyrange * (float64(i)/cells - 0.5)
-				y := xyrange * (float64(j)/cells - 0.5)
-				z := f(x, y)
-				r, g, b := hslToRgb(z, 0.5, 0.5)
-				fmt.Fprintf(out, "<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='#%X%X%X'/>\n",
-					ax, ay, bx, by, cx, cy, dx, dy, r, g, b)
+				if len(colour) == 0 {
+					x := xyrange * (float64(i)/cells - 0.5)
+					y := xyrange * (float64(j)/cells - 0.5)
+					z := f(x, y)
+					r, g, b := hslToRgb(z, 0.5, 0.5)
+					colour = fmt.Sprintf("%X%X%X", r, g, b)
+				}
+				fmt.Fprintf(out, "<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='#%s'/>\n",
+					ax, ay, bx, by, cx, cy, dx, dy, colour)
 			}
 		}
 	}
 	fmt.Fprintln(out, "</svg>")
 }
 
-func corner(i, j int) (float64, float64, error) {
+func corner(i, j int, width, height int64, xyscale float64, zscale float64) (float64, float64, error) {
 	// Find point (x,y) at corner of cell (i,j).
 	x := xyrange * (float64(i)/cells - 0.5)
 	y := xyrange * (float64(j)/cells - 0.5)
@@ -76,8 +82,8 @@ func corner(i, j int) (float64, float64, error) {
         }
 
 	// Project (x,y,z) isometrically onto 2-D SVG canvas (sx,sy).
-	sx := width/2 + (x-y)*cos30*xyscale
-	sy := height/2 + (x+y)*sin30*xyscale - z*zscale
+	sx := float64(width)/2.0 + (x-y)*cos30*xyscale
+	sy := float64(height)/2.0 + (x+y)*sin30*xyscale - z*zscale
 	return sx, sy, nil
 }
 
@@ -142,6 +148,15 @@ func Round(x float64) uint8 {
         return uint8(t + math.Copysign(1, x))
     }
     return uint8(t)
+}
+
+func ParseInt(s string, base int, bitSize int, def int64) int64 {
+    if res, err := strconv.ParseInt(s, base, bitSize); err != nil {
+        fmt.Fprintf(os.Stderr, "ParseInt: %v\n", err)
+        return def
+    } else {
+        return res
+    }
 }
 
 //!-
