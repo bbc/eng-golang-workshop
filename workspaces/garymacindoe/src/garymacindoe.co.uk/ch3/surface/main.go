@@ -55,15 +55,16 @@ func surface(out io.Writer, height int64, width int64, colour string) {
 			cx, cy, errc := corner(i,   j+1, width, height, xyscale, zscale)
 			dx, dy, errd := corner(i+1, j+1, width, height, xyscale, zscale)
 			if erra == nil && errb == nil && errc == nil && errd == nil {
-				if len(colour) == 0 {
+				col := colour
+				if len(col) == 0 {
 					x := xyrange * (float64(i)/cells - 0.5)
 					y := xyrange * (float64(j)/cells - 0.5)
 					z := f(x, y)
 					r, g, b := hslToRgb(z, 0.5, 0.5)
-					colour = fmt.Sprintf("%X%X%X", r, g, b)
+					col = fmt.Sprintf("%X%X%X", r, g, b)
 				}
 				fmt.Fprintf(out, "<polygon points='%g,%g %g,%g %g,%g %g,%g' fill='#%s'/>\n",
-					ax, ay, bx, by, cx, cy, dx, dy, colour)
+					ax, ay, bx, by, cx, cy, dx, dy, col)
 			}
 		}
 	}
