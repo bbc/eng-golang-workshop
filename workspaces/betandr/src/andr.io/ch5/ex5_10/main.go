@@ -28,20 +28,24 @@ var prereqs = map[string][]string{
 }
 
 func main() {
-	for course := range topoSort(prereqs) {
-		fmt.Printf("%s\n", course)
+	for i, course := range topoSort(prereqs) {
+		fmt.Printf("%d:\t%s\n", i+1, course)
 	}
 }
 
 // topoSort traverses the directed graph represented by `m` visiting each node once.
-func topoSort(m map[string][]string) map[string]string {
-	var visited = make(map[string]string)
+func topoSort(m map[string][]string) []string {
+	var order []string
+	var visited = make(map[string]bool)
 	var visitAll func(items []string)
 
 	visitAll = func(items []string) {
 		for _, item := range items {
-			visited[item] = item
-			visitAll(m[item])
+			if !visited[item] {
+				visited[item] = true
+				visitAll(m[item])
+				order = append(order, item)
+			}
 		}
 	}
 
@@ -51,5 +55,5 @@ func topoSort(m map[string][]string) map[string]string {
 	}
 
 	visitAll(keys)
-	return visited
+	return order
 }
