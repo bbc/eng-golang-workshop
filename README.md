@@ -1,7 +1,7 @@
 # BBC Gophers — Go Language Workshop
 
 <p align="center">
-  <img width="225" height="300" src="https://github.com/bbc/eng-golang-workshop/raw/master/resources/gopher.gif">
+  <img width="300" height="300" src="https://raw.githubusercontent.com/bbc/eng-golang-workshop/master/resources/gordon_golang.png">
 </p>
 
 ```
