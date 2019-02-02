@@ -1,6 +1,6 @@
 # Chapter 11 - Testing
 
-### Test Functions
+## Test Functions
 
 ### Exercise 11.1
 Write tests for the `charcount` program in Section 4.3

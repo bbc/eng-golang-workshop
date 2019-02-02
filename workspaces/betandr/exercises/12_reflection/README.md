@@ -2,7 +2,7 @@
 
 ## Display, a Recursive Value Printer
 
-#### Exercise 12.1
+### Exercise 12.1
 Extend `Display` so that it can display maps whoes kets are structs or arrays.
 
 ### Exercise 12.2

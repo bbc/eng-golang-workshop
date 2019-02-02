@@ -2,14 +2,14 @@
 
 ## Example: Deep Equivalence
 
-#### Exercise 13.1
+### Exercise 13.1
 Define a deep comparison function that considers numbers (of any type) equal if
 they differ by less than one part in a billion.
 
 ### Exercise 13.3
 Write a function that reports whether its argument is a cyclic data structure.
 
-#### Exercise 13.4
+### Exercise 13.4
 Use `sync.Mutex` to make `bzip2.Writer` safe for concurrent use by multiple
 goroutines.
 

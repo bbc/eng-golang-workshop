@@ -2,7 +2,7 @@
 
 ## Race Conditions
 
-#### Exercise 9.1
+### Exercise 9.1
 Add a function `Withdraw(amount int) bool` to the `gopl.io/ch9/bank1` program.
 The result should indicate whether the transaction succeeded or failed due to
 insufficient funds. The message sent to the monitor goroutine must contain both
@@ -10,9 +10,9 @@ the amount fo withdraw and a new channel over which the monitor goroutine must
 contain both the amount to withdraw and a new channel over which the monitor
 goroutine can send the boolean result back to `Withdraw`.
 
-### Lazy Inisialization: `sync.Once`
+## Lazy Inisialization: `sync.Once`
 
-#### Exercise 9.2
+### Exercise 9.2
 Rewrite the `PopCount` example from Section 2.6.2 so that it initializes the
 lookup table using `sync.Once` the first time it is needed. (Realistically, the
 cost of syncronization would be prohibitive for a small and highly optimized

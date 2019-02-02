@@ -6,7 +6,7 @@
 Using the ideas from `ByteCounter`, implement counters for words and for lines.
 You will find `bufio.ScanWords` useful.
 
-#### Exercise 7.2
+### Exercise 7.2
 Write a function `CountingWriter` with the signature below that, given an
 `io.Writer`, returns a new `Writer` that wraps the original, and a pointer to an
 `int64` variable that any moment contains the number of bytes written to the new
@@ -35,7 +35,7 @@ reports an end-of-file condition after `n` bytes. Implement it.
   func LimitReader(r, io.Reader, n int64) io.Reader
 ```
 
-### Parsing Flags with `flag.Value`
+## Parsing Flags with `flag.Value`
 
 ### Exercise 7.6
 Add support for Kelvin temperatures to `tempFlag`.
@@ -85,7 +85,7 @@ You may find the `html/template` package (§4.6) useful.
 Add a `String` method to `Expr` to pretty-print the syntax tree. Check that the
 results, when parsed again, yield an equivalent tree.
 
-#### Exercise 7.14
+### Exercise 7.14
 Define a new concrete type that satisfies the `Expr` interface and provides a
 new operation such as computing the minimum value of its operands. Since the
 `Parse` function does not create instances of this new type, to use it you will
@@ -96,7 +96,7 @@ Write a program that reads a single expression from the standard input, prompts
 the user to provide values for any variables, then evaluates the expression in
 the resulting environment. Handle all errors gracefully.
 
-#### Exercise 7.16
+### Exercise 7.16
 Write a web-based calculator program.
 
 ## Example: Token-Based XML Decoding
@@ -107,7 +107,7 @@ their attributes too, in the manner of CSS, so that, for instance, an element
 like `<div id="page" class="wide">` could be selected by matching `id` or
 `class` as well as its name.
 
-#### Exercise 7.18
+### Exercise 7.18
 Using the token-based decoder API, write a program that will read an arbitrary
 XML document and construct a tree of generic nodes that represents it. Nodes are
 of two kinds: `CharData` nodes represent text strings, and `Element` nodes

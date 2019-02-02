@@ -22,7 +22,7 @@ document, such as images, scripts, and style sheets.
 
 ## Multiple Return Values
 
-#### Exercise 5.5
+### Exercise 5.5
 Implement `countWordsAndImages`. See (Exercise 4.9 for word-splitting).
 
 ### Exercise 5.6
@@ -81,15 +81,15 @@ the file system hierarchy on your computer (a tree), or a list of bus or subway
 routes downloaded from your city government's website (an undirected graph).
 
 ### Exercise 5.15
-Write varadic functions `max` and `min`, analogous to `sum`. What should these
+Write variadic functions `max` and `min`, analogous to `sum`. What should these
 functions do when called with no arguments? Write variants that require at least
 one argument.
 
-#### Exercise 5.16
-Write varadic versions of `strings.Join`.
+### Exercise 5.16
+Write variadic versions of `strings.Join`.
 
 ### Exercise 5.17
-Write a varadic function `ElementsByTagName` that, given an HTML node tree and
+Write a variadic function `ElementsByTagName` that, given an HTML node tree and
 zero or more names, returns all elements that match one of those names. Here are
 two example calls:
 ```

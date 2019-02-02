@@ -29,7 +29,7 @@ specify values like height, width, and color as HTTP request parameters.
 
 ## Complex Numbers
 
-#### Exercise 3.5
+### Exercise 3.5
 Implement a full-color Mandelbrot set using the function `image.NewRBA` and the
 type `color.RGBA` or `color.YCbCr`.
 

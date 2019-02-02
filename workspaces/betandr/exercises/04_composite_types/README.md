@@ -1,4 +1,4 @@
-# Chapter 4 - Composite Types
+# Chapter 4 - Composite Types
 
 ## Arrays
 
@@ -12,7 +12,7 @@ supports a command-line flag to print the SHA384 or SHA512 hash instead.
 
 ## In-Place Slice Techniques
 
-#### Exercise 4.3
+### Exercise 4.3
 Rewrite `reverse` to use an array pointer instead of a slice.
 
 ### Exercise 4.4
@@ -27,11 +27,11 @@ Write an in-place function that squashes each run of adjacent Unicode spaces
 (see `unicode.IsSpace`) in a UTF-8-encoded `[]byte` slice into a single ASCII
 space.
 
-#### Exercise 4.7
+### Exercise 4.7
 Modify `reverse` to reverse the characters of a `[]byte` slice that represents
 a UTF-8-encoded string, in place. Can you do it without allocating new memory?
 
-## Maps
+## Maps
 
 ### Exercise 4.8
 Modify `charcount` to count letters, digits, and so on in their Unicode
@@ -42,7 +42,7 @@ Write a program `wordfreq` to report the frequency of each word in an input text
 file. Call `input.Split(bufio.ScanWords)` before the first call to `Scan` to
 break the input into words instead of lines.
 
-#### Exercise 4.10
+### Exercise 4.10
 Modify `issues` to report the results in age categories, say less than a month
 old, less than a year old, and more than a year old.
 
