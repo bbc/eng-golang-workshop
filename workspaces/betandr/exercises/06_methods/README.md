@@ -2,7 +2,7 @@
 
 ## Example: Bit Vector Type
 
-#### Exercise 6.1
+### Exercise 6.1
 Implement these additional methods:
 ```
   func (*IntSet) Len() int      // return the number of elements
