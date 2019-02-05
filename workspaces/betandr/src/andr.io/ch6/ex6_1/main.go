@@ -42,26 +42,37 @@ func (s *IntSet) UnionWith(t *IntSet) {
 	}
 }
 
-// Len returns the number of elements
-func (*IntSet) Len() int {
-	// TODO
-	return 0
+// Len returns the number of elements by running a population count (by clearing)
+// on each word.
+func (s *IntSet) Len() int {
+	count := 0
+	for _, w := range s.words {
+		for w != 0 {
+			w = w & (w - 1) // clear rightmost non-zero bit
+			count++
+		}
+	}
+	return count
 }
 
 // Remove removes `x` from the set
-func (*IntSet) Remove(x int) {
-	// TODO
+func (s *IntSet) Remove(x int) {
+	word, bit := x/64, uint(x%64)
+	s.words[word] ^= 1 << bit
 }
 
 // Clear removes all elements from the set
-func (*IntSet) Clear() {
-	// TODO
+func (s *IntSet) Clear() {
+	s.words = nil // is this a cheat? :thinking_face:
 }
 
 // Copy returns a copy of the set
-func (*IntSet) Copy() *IntSet {
-	// TODO
-	return nil
+func (s *IntSet) Copy() *IntSet {
+	ns := new(IntSet)
+	for _, word := range s.words {
+		ns.words = append(ns.words, word)
+	}
+	return ns
 }
 
 // String returns the set as a string of the form "{1 2 3}".
@@ -91,14 +102,24 @@ func main() {
 	x.Add(1)
 	x.Add(144)
 	x.Add(9)
-	fmt.Println(x.String())
+	fmt.Printf("%s has %d items\n", x.String(), x.Len())
 
 	y.Add(9)
 	y.Add(42)
-	fmt.Println(y.String())
+	fmt.Printf("%s has %d items\n", y.String(), y.Len())
 
 	x.UnionWith(&y)
-	fmt.Println(x.String())
+	fmt.Printf("%s union has %d items\n", x.String(), x.Len())
 
 	fmt.Println(x.Has(9), x.Has(123))
+
+	x.Clear()
+	fmt.Printf("%s is cleared\n", x.String())
+
+	z := y.Copy()
+	y.Remove(9)
+	fmt.Printf("%s has %d items\n", y.String(), y.Len())
+
+	fmt.Printf("%s copy has %d items\n", z.String(), z.Len())
+
 }
