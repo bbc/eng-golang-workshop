@@ -7,8 +7,8 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
+	"strings"
 )
 
 const size = 32 << (^uint(0) >> 63)
@@ -136,25 +136,24 @@ func (s *IntSet) Elems() []int {
 }
 
 // String returns the set as a string of the form "{1 2 3}".
-// TODO re-write using strings.Builder?
 func (s *IntSet) String() string {
-	var buf bytes.Buffer
-	buf.WriteByte('{')
+	var sb strings.Builder
+	sb.WriteString("{")
 	for i, word := range s.words {
 		if word == 0 {
 			continue
 		}
 		for j := 0; j < size; j++ {
 			if word&(1<<uint(j)) != 0 {
-				if buf.Len() > len("{") {
-					buf.WriteByte(' ')
+				if sb.Len() > len("{") {
+					sb.WriteString(" ")
 				}
-				fmt.Fprintf(&buf, "%d", size*i+j)
+				sb.WriteString(fmt.Sprintf("%d", size*i+j))
 			}
 		}
 	}
-	buf.WriteByte('}')
-	return buf.String()
+	sb.WriteString("}")
+	return sb.String()
 }
 
 func main() {
