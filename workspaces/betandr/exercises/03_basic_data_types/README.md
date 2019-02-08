@@ -3,12 +3,12 @@
 ## Floating-Point Numbers
 
 ### Exercise 3.1
-If the function `f` retyrns a non-finite `float64` value, the SVG file will
+If the function `f` returns a non-finite `float64` value, the SVG file will
 contain invalid `<polygon>` elements (although many SVG renderers handle this
 gracefully). Modify the program to skip invalid polygons.
 
 ### Exercise 3.2
-Experiment with vizualisations of other functions from the `math` package. Can
+Experiment with vizualizations of other functions from the `math` package. Can
 you produce an egg box, moguls, or a saddle?
 
 ### Exercise 3.3
@@ -71,3 +71,6 @@ optional sign.
 ### Exercise 3.12
 Write a function that reports whether two strings are anagrams of each other,
 that is, they contain the same letters in a different order.
+
+### Exercise 3.13
+Write const declarations for KB, MB, up through YB as compactly as you can.
