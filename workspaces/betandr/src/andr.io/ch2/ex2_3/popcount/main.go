@@ -1,10 +1,6 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 45.
-
-// Package popcount calculates population count of a uint64
-//!+
+// Rewrite `PopCount` to use a loop instead of a single expression. Compare the
+// performance of the two versions. (Section 11.4 shows how to compare the
+// performance of different implementations systematically.)
 package popcount
 
 // pc[i] is the population count of i.

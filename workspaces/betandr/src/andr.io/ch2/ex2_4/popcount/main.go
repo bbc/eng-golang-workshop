@@ -1,10 +1,6 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 45.
-
-// Package popcount calculates population count of a uint64
-//!+
+// Write a version of `PopCount` that counts bits by shifting its argument through
+// 64 bit positions, testing the rightmost bit each time. Compare its performance
+// to the table-lookup version.
 package popcount
 
 // pc[i] is the population count of i.
@@ -36,5 +32,3 @@ func ByShifting(x uint64) int {
 	}
 	return result
 }
-
-//!-

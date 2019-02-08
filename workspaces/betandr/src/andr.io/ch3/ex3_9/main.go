@@ -1,4 +1,6 @@
-// Mandelbrot emits a PNG image of the Mandelbrot fractal.
+// Write a web server that renders fractals and writes the image data to the
+// client. Allow the client to specify the _x_, _y_, and _zoom_ values as
+// parameters to the HTTP request.
 package main
 
 import (

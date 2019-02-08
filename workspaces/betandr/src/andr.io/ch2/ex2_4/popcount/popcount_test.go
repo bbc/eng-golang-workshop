@@ -1,6 +1,6 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
+// Write a version of `PopCount` that counts bits by shifting its argument through
+// 64 bit positions, testing the rightmost bit each time. Compare its performance
+// to the table-lookup version.
 package popcount_test
 
 import (

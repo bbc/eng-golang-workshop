@@ -1,10 +1,8 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 41.
-
-//!+
-
+// Write a general purpose unit-conversion program analogous to `cf` that reads
+// numbers from its command-line arguments or from the standard imput if there are
+// no arguments, and converts each nunber into units like temperature in Celsius
+// and Fahrenheit, length in feet and meters, weight in pounds, kilograms, and the
+// like.
 package weightconv
 
 // KToP converts a Kilo weight to Pounds.
@@ -24,5 +22,3 @@ func SToK(s Stone) Kilo { return Kilo(s / StoneK) }
 
 // SToP converts a Stone temperature to Pound.
 func SToP(s Stone) Pound { return Pound(s * StoneP) }
-
-//!-

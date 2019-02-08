@@ -1,4 +1,5 @@
-// Comma prints its argument numbers with a comma at each power of 1000.
+// Write a non-recursive version of `comma`, using `bytes.Buffer` instead of string
+// concatenation.
 package main
 
 import (

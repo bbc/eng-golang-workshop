@@ -1,10 +1,10 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-// See page 61.
-//!+
-
-// Mandelbrot emits a PNG image of the Mandelbrot fractal.
+// Rendering fractals at high zoom levels demands great arithmetic precision.
+// Implement the same fractal using four different representations of numbers:
+// `complex64`, `complex128`, `big.Float`, and `big.Rat`. (The latter two types
+// are found in the `math/big` package. `Float` uses arbitrary but
+// bounded-precision floating-point; `Rat` uses unbounded-precision rational
+// numbers.) How do they compare in performance and memory usage? At what zoom
+// levels do rendering artefacts become visible?
 package mandelbrot
 
 import (

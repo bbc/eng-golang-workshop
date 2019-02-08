@@ -1,6 +1,5 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
+// The expression `x&(x-1)` clears the rightmost non-zero bit of x. Write a version
+// of `PopCount` that counts bits by using this fact, and assess its performance.
 package popcount_test
 
 import (

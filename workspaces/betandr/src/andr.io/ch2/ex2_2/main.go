@@ -1,4 +1,8 @@
-// Main implementation
+// Write a general purpose unit-conversion program analogous to `cf` that reads
+// numbers from its command-line arguments or from the standard imput if there are
+// no arguments, and converts each nunber into units like temperature in Celsius
+// and Fahrenheit, length in feet and meters, weight in pounds, kilograms, and the
+// like.
 package main
 
 import (

@@ -1,9 +1,6 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-//!+
-
-// Package tempconv performs temperature conversions.
+// Add types, constants, and functions to `tempconv` for processing temperatures
+// in the Kelvin scale, where Kelvin is -273.15°C and a difference of 1K
+// has the same magnitude as 1°C.
 package tempconv
 
 import "fmt"
@@ -36,5 +33,3 @@ func (f Fahrenheit) String() string { return fmt.Sprintf("%g°F", f) }
 
 // Adds custom String() formatting to Kelvin
 func (f Kelvin) String() string { return fmt.Sprintf("%g K", f) }
-
-//!-

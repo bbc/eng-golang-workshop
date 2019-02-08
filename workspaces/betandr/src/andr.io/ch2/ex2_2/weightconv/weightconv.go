@@ -1,9 +1,8 @@
-// Copyright © 2016 Alan A. A. Donovan & Brian W. Kernighan.
-// License: https://creativecommons.org/licenses/by-nc-sa/4.0/
-
-//!+
-
-// Package weightconv performs weight conversions.
+// Write a general purpose unit-conversion program analogous to `cf` that reads
+// numbers from its command-line arguments or from the standard imput if there are
+// no arguments, and converts each nunber into units like temperature in Celsius
+// and Fahrenheit, length in feet and meters, weight in pounds, kilograms, and the
+// like.
 package weightconv
 
 import "fmt"
@@ -37,5 +36,3 @@ func (f Stone) String() string { return fmt.Sprintf("%gst", f) }
 
 // Adds custom String() formatting to Pound
 func (f Pound) String() string { return fmt.Sprintf("%glb", f) }
-
-//!-

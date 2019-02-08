@@ -1,4 +1,5 @@
-// Comma prints its argument numbers with a comma at each power of 1000.
+// Enhance `comma` so it deals correctly with floating-point numbers and an
+// optional sign.
 package main
 
 import (

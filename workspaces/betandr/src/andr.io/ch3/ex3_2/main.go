@@ -1,4 +1,5 @@
-// Surface computes an SVG rendering of a 3-D surface function.
+// Experiment with vizualizations of other functions from the `math` package. Can
+// you produce an egg box, moguls, or a saddle?
 package main
 
 import (
@@ -55,5 +56,3 @@ func f(x, y float64) float64 {
 }
 
 // z=x^2−y^2
-
-//!-

@@ -1,4 +1,5 @@
-// Comma prints its argument numbers with a comma at each power of 1000.
+// Write a function that reports whether two strings are anagrams of each other,
+// that is, they contain the same letters in a different order.
 package main
 
 import (

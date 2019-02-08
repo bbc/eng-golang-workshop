@@ -1,4 +1,5 @@
-// Mandelbrot emits a PNG image of the Mandelbrot fractal.
+// Implement a full-color Mandelbrot set using the function `image.NewRBA` and the
+// type `color.RGBA` or `color.YCbCr`.
 package main
 
 import (
