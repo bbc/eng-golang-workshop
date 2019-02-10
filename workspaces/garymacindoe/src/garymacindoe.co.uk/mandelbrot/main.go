@@ -23,10 +23,21 @@ func main() {
             x := float64(px)/width*(xmax-xmin) + xmin
             z := complex(x, y)
             // Image point (px, py) represents complex value x.
-            img.Set(px, py, mandelbrot(z))
+            img.Set(px, py, supersample4(1.0/width*(xmax-xmin), 1.0/height*(ymax-ymin), mandelbrot, z))
         }
     }
     png.Encode(os.Stdout, img)  // NOTE: ignoring errors
+}
+
+func supersample4(xw, yw float64, fn func(complex128) color.RGBA, z complex128) color.RGBA {
+    c0 := fn(complex(real(z) - 0.25 * xw, imag(z) - 0.25 * yw))
+    c1 := fn(complex(real(z) - 0.25 * xw, imag(z) + 0.25 * yw))
+    c2 := fn(complex(real(z) + 0.25 * xw, imag(z) - 0.25 * yw))
+    c3 := fn(complex(real(z) + 0.25 * xw, imag(z) + 0.25 * yw))
+    return color.RGBA{(c0.R + c1.R + c2.R + c3.R) / 4,
+                      (c0.G + c1.G + c2.G + c3.G) / 4,
+                      (c0.B + c1.B + c2.B + c3.B) / 4,
+                      255 }
 }
 
 func mandelbrot(z complex128) color.RGBA {
