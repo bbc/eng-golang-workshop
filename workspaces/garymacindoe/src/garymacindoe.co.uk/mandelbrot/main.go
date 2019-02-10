@@ -10,6 +10,14 @@ import (
     "os"
 )
 
+func f(z complex128) complex128 {
+    return cmplx.Pow(z, 4) - 1
+}
+
+func df(z complex128) complex128 {
+    return 4 * cmplx.Pow(z, 3)
+}
+
 func main() {
     const (
         xmin, ymin, xmax, ymax = -2, -2, +2, +2
@@ -23,7 +31,7 @@ func main() {
             x := float64(px)/width*(xmax-xmin) + xmin
             z := complex(x, y)
             // Image point (px, py) represents complex value x.
-            img.Set(px, py, supersample4(1.0/width*(xmax-xmin), 1.0/height*(ymax-ymin), mandelbrot, z))
+            img.Set(px, py, newton(z))
         }
     }
     png.Encode(os.Stdout, img)  // NOTE: ignoring errors
@@ -52,6 +60,45 @@ func mandelbrot(z complex128) color.RGBA {
         }
     }
     return color.RGBA{0, 0, 0, 255}
+}
+
+func newton(z complex128) color.RGBA {
+    const iterations = 37
+    const contrast = 7
+    const tolerance = 0.000001
+
+    var roots = [...]complex128{
+        complex( 1,  0),
+        complex(-1,  0),
+        complex( 0,  1),
+        complex( 0, -1),
+    }
+
+    var colours = [...]color.RGBA{
+        color.RGBA{255,   0,   0, 255},
+        color.RGBA{  0, 255,   0, 255},
+        color.RGBA{  0,   0, 255, 255},
+        color.RGBA{255, 255,   0, 255},
+    }
+
+    zx := z
+    for i := uint8(0); i < 4; i++ {
+        z = zx
+        for n := uint8(0); n < iterations; n++ {
+            z = z - f(z) / df(z)
+            if cmplx.Abs(z - roots[i]) < tolerance {
+                return color.RGBA{colours[i].R, colours[i].G, colours[i].B, max(0, 255 - contrast*n)}
+            }
+        }
+    }
+    return color.RGBA{0, 0, 0, 255}
+}
+
+func max(x, y uint8) uint8 {
+    if x > y {
+        return x
+    }
+    return y
 }
 
 func hslToRgb(h float64, s float64, l float64) color.RGBA {
